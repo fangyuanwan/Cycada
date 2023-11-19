@@ -1,3 +1,7 @@
 __pycache__/
 cycada/*/__pycache__/
 scripts/.ipynb_checkpoints/
+x/
+pretrained/
+data/
+.venv/
