@@ -75,11 +75,11 @@ def train(data, datadir, model, num_cls, outdir='',
     ############################
     train_data = load_data(data, 'train', batch=batch, 
         rootdir=datadir, num_channels=net.num_channels, 
-        image_size=net.image_size, download=True, kwargs=kwargs)
+        image_size=net.image_size, download=False, kwargs=kwargs)
     
     test_data = load_data(data, 'test', batch=batch, 
         rootdir=datadir, num_channels=net.num_channels, 
-        image_size=net.image_size, download=True, kwargs=kwargs)
+        image_size=net.image_size, download=False, kwargs=kwargs)
    
     ###################
     # Setup Optimizer #

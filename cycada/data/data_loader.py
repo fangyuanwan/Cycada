@@ -12,7 +12,7 @@ from torchvision import datasets, transforms
 from ..util import to_tensor_raw
 
 def load_data(name, dset, batch=64, rootdir='', num_channels=3,
-        image_size=32, download=True, kwargs={}):
+        image_size=32, download= False, kwargs={}):
     is_train = (dset == 'train')
     if isinstance(name, list) and len(name) == 2: # load adda data
         src_dataset = get_dataset(name[0], join(rootdir, name[0]), dset, 
@@ -116,6 +116,7 @@ class AddaDataset(data.Dataset):
 data_params = {}
 def register_data_params(name):
     def decorator(cls):
+        print(f"Registering data params: {name}")
         data_params[name] = cls
         return cls
     return decorator
@@ -123,6 +124,7 @@ def register_data_params(name):
 dataset_obj = {}
 def register_dataset_obj(name):
     def decorator(cls):
+        print(f"Registering data params: {name}")
         dataset_obj[name] = cls
         return cls
     return decorator
@@ -137,14 +139,26 @@ class DatasetParams(object):
     num_cls      = 10
     target_transform = None
 
+# def get_dataset(name, rootdir, dset, image_size, num_channels, download=True):
+#     is_train = (dset == 'train')
+#     print('get dataset:', name, rootdir, dset)
+#     params = data_params[name] 
+#     transform = get_transform(params, image_size, num_channels)
+#     target_transform = get_target_transform(params)
+#     return dataset_obj[name](rootdir, train=is_train, transform=transform,
+#             target_transform=target_transform, download=download)
+
 def get_dataset(name, rootdir, dset, image_size, num_channels, download=True):
     is_train = (dset == 'train')
     print('get dataset:', name, rootdir, dset)
-    params = data_params[name] 
+
+    # Existing code for other datasets
+    params = data_params[name]
     transform = get_transform(params, image_size, num_channels)
     target_transform = get_target_transform(params)
     return dataset_obj[name](rootdir, train=is_train, transform=transform,
-            target_transform=target_transform, download=download)
+                             target_transform=target_transform, download=download)
+
 
 def get_fcn_dataset(name, rootdir, **kwargs):
     return dataset_obj[name](rootdir, **kwargs)

@@ -144,10 +144,10 @@ def train_adda(src, tgt, model, num_cls, num_epoch=200,
     #######################################
     train_src_data = load_data(src, 'train', batch=batch, 
         rootdir=join(datadir, src), num_channels=net.num_channels, 
-        image_size=net.image_size, download=True, kwargs=kwargs)
-    train_tgt_data = load_data(tgt, 'train', batch=batch, 
+        image_size=net.image_size, download=False, kwargs=kwargs)
+    train_tgt_data = load_data(tgt, 'train', batch=batch,  
         rootdir=join(datadir, tgt), num_channels=net.num_channels, 
-        image_size=net.image_size, download=True, kwargs=kwargs)
+        image_size=net.image_size, download=False, kwargs=kwargs)
 
     ######################
     # Optimization setup #

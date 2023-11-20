@@ -4,3 +4,4 @@ from . import mnist
 from . import cyclegan
 from . import gta5, cityscapes, cyclegta5
 from . import adda_datasets
+from . import icdar2013,icdar2015
