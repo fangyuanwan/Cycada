@@ -160,13 +160,15 @@ class VGG16_FCN8s(nn.Module):
 
 class VGG16_FCN8s_caffe(VGG16_FCN8s):
 
+    def reverse_channel_order(x):
+        return torch.stack(torch.unbind(x, 1)[::-1], 1)
+
     transform = torchvision.transforms.Compose([
         torchvision.transforms.ToTensor(),
         torchvision.transforms.Normalize(
             mean=[0.485, 0.458, 0.408],
             std=[0.00392156862745098] * 3),
-        torchvision.transforms.Lambda(
-            lambda x: torch.stack(torch.unbind(x, 1)[::-1], 1))
+         torchvision.transforms.Lambda(reverse_channel_order)
         ])
 
     def load_base_weights(self):

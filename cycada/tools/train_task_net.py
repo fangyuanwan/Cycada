@@ -20,6 +20,7 @@ from .test_task_net import test
 from .util import make_variable
 
 def train_epoch(loader, net, opt_net, epoch):
+    print(epoch)
     log_interval = 100 # specifies how often to display
     net.train()
     for batch_idx, (data, target) in enumerate(loader):
@@ -56,7 +57,7 @@ def train(data, datadir, model, num_cls, outdir='',
         num_epoch=100, batch=128, 
         lr=1e-4, betas=(0.9, 0.999), weight_decay=0):
     """Train a classification net and evaluate on test set."""
-
+    print("this is num epoch",num_epoch)
     # Setup GPU Usage
     if torch.cuda.is_available(): 
         kwargs = {'num_workers': 1, 'pin_memory': True}
@@ -80,7 +81,9 @@ def train(data, datadir, model, num_cls, outdir='',
     test_data = load_data(data, 'test', batch=batch, 
         rootdir=datadir, num_channels=net.num_channels, 
         image_size=net.image_size, download=False, kwargs=kwargs)
-   
+    
+    
+    
     ###################
     # Setup Optimizer #
     ###################
@@ -91,6 +94,7 @@ def train(data, datadir, model, num_cls, outdir='',
     # Train #
     #########
     print('Training {} model for {}'.format(model, data))
+    print(num_epoch)
     for epoch in range(num_epoch):
         train_epoch(train_data, net, opt_net, epoch)
     

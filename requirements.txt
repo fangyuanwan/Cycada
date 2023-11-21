@@ -7,3 +7,5 @@ tqdm
 requests
 colorlog
 pyyaml
+scikit-learn
+protobuf==3.19.4

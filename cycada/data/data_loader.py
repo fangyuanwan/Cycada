@@ -11,6 +11,13 @@ from torchvision import datasets, transforms
 
 from ..util import to_tensor_raw
 
+def convert_gray_to_rgb(x):
+    return x.convert('RGB')
+
+def convert_rgb_to_gray(x):
+    return x.convert('L')
+
+
 def load_data(name, dset, batch=64, rootdir='', num_channels=3,
         image_size=32, download= False, kwargs={}):
     is_train = (dset == 'train')
@@ -64,8 +71,9 @@ def get_transform2(dataset_name, net_transform, downscale):
 
 def get_transform(params, image_size, num_channels):
     # Transforms for PIL Images: Gray <-> RGB
-    Gray2RGB = transforms.Lambda(lambda x: x.convert('RGB'))
-    RGB2Gray = transforms.Lambda(lambda x: x.convert('L'))
+    # Inside get_transform function
+    Gray2RGB = transforms.Lambda(convert_gray_to_rgb)
+    RGB2Gray = transforms.Lambda(convert_rgb_to_gray)
 
     transform = []
     # Does size request match original size?
@@ -87,14 +95,18 @@ def get_transform(params, image_size, num_channels):
 
     return transforms.Compose(transform)
 
+def uniform_transform(x):
+        return x[:,0] if isinstance(x, (list, np.ndarray)) and len(x) == 2 else x
+
 def get_target_transform(params):
+    
     transform = params.target_transform
-    t_uniform = transforms.Lambda(lambda x: x[:,0] 
-            if isinstance(x, (list, np.ndarray)) and len(x) == 2 else x)
+
+    # Inside get_target_transform function
     if transform is None:
-        return t_uniform
+        return uniform_transform
     else:
-        return transforms.Compose([transform, t_uniform])
+        return transforms.Compose([transform, uniform_transform])
 
 class AddaDataset(data.Dataset):
 
@@ -116,7 +128,7 @@ class AddaDataset(data.Dataset):
 data_params = {}
 def register_data_params(name):
     def decorator(cls):
-        print(f"Registering data params: {name}")
+        #print(f"Registering data params: {name}")
         data_params[name] = cls
         return cls
     return decorator
@@ -124,7 +136,7 @@ def register_data_params(name):
 dataset_obj = {}
 def register_dataset_obj(name):
     def decorator(cls):
-        print(f"Registering data params: {name}")
+        #print(f"Registering data params: {name}")
         dataset_obj[name] = cls
         return cls
     return decorator

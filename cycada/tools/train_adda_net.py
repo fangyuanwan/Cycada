@@ -19,17 +19,18 @@ from ..tools.test_task_net import test
 from ..tools.util import make_variable
 
 def train(loader_src, loader_tgt, net, opt_net, opt_dis, epoch):
+
+    print("this is epoch for ADDA:",epoch )
    
-    log_interval = 100 # specifies how often to display
+    log_interval = 10 # specifies how often to display
   
     N = min(len(loader_src.dataset), len(loader_tgt.dataset)) 
     joint_loader = zip(loader_src, loader_tgt)
       
     net.train()
-   
     last_update = -1
     for batch_idx, ((data_s, _), (data_t, _)) in enumerate(joint_loader):
-        
+        print("this is epoch for batch_idx:",batch_idx, ((data_s, _), (data_t, _))  )
         # log basic adda train info
         info_str = "[Train Adda] Epoch: {} [{}/{} ({:.2f}%)]".format(
             epoch, batch_idx*len(data_t), N, 100 * batch_idx / N)
@@ -120,7 +121,9 @@ def train_adda(src, tgt, model, num_cls, num_epoch=200,
         src_weights=None, weights=None, lr=1e-5, betas=(0.9,0.999),
         weight_decay=0):
     """Main function for training ADDA."""
+    print("this is debug")
 
+    print("this is num_epoch ",num_epoch)
     ###########################
     # Setup cuda and networks #
     ###########################
