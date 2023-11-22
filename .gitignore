@@ -1,7 +1,12 @@
 __pycache__/
-cycada/*/__pycache__/
+cycada/data/__pycache__/
+cycada/model/__pycache__/
+cycada/tools/__pycache__/
 scripts/.ipynb_checkpoints/
 x/
 pretrained/
 data/
 .venv/
+FY/
+2013/
+2015/

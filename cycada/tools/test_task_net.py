@@ -66,7 +66,8 @@ def load_and_test_net(data, datadir, weights, model, num_cls,
     # Load data
     test_data = load_data(data, dset, batch=100, 
         rootdir=datadir, num_channels=net.num_channels, 
-        image_size=net.image_size, download=True, kwargs=kwargs)
+        image_size=net.image_size, download=
+        False , kwargs=kwargs)
     if test_data is None:
         print('skipping test')
     else:

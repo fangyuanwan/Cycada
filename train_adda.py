@@ -23,10 +23,10 @@ if __name__ == '__main__':
         # Choose GPU ID
         os.environ['CUDA_VISIBLE_DEVICES'] = '0' 
 
-        # Problem Params
-        src = 'icdar2013'
-        tgt = 'icdar2015'
-        iteration = 1 #'no_cycle' 
+# Problem Params
+src = 'icdar2013'
+tgt = 'icdar2015'
+iteration = 1 #'no_cycle' 
 
         base_src = src.split('2')[0]
 
