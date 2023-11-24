@@ -53,7 +53,7 @@ def train_epoch(loader, net, opt_net, epoch):
             print('  Acc: {:.2f}'.format(acc))
 
 
-def train(data, datadir, model, num_cls, outdir='', 
+def  train(data, datadir, model, num_cls, outdir='', 
         num_epoch=100, batch=128, 
         lr=1e-4, betas=(0.9, 0.999), weight_decay=0):
     """Train a classification net and evaluate on test set."""

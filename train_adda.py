@@ -23,10 +23,10 @@ if __name__ == '__main__':
         # Choose GPU ID
         os.environ['CUDA_VISIBLE_DEVICES'] = '0' 
 
-# Problem Params
-src = 'icdar2013'
-tgt = 'icdar2015'
-iteration = 1 #'no_cycle' 
+        # Problem Params
+        src = 'icdar2013'
+        tgt = 'icdar2015'
+        iteration = 1 #'no_cycle' 
 
         base_src = src.split('2')[0]
 
@@ -43,10 +43,10 @@ iteration = 1 #'no_cycle'
         batch = 128
 
         src_lr = 1e-4
-        src_num_epoch = 5
+        src_num_epoch = 100
         src_datadir = join(datadir, src)
         src_net_file = join(outdir, '{}_net_{}.pth'.format(model, src)) 
-        adda_num_epoch =5
+        adda_num_epoch =100
         adda_lr = 1e-5
         adda_net_file = join(outdir, 'adda_{:s}_net_{:s}_{:s}.pth'
                 .format(model, src, tgt))

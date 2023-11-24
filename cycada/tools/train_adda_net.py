@@ -22,7 +22,7 @@ def train(loader_src, loader_tgt, net, opt_net, opt_dis, epoch):
 
     print("this is epoch for ADDA:",epoch )
    
-    log_interval = 10 # specifies how often to display
+    log_interval = 100 # specifies how often to display
   
     N = min(len(loader_src.dataset), len(loader_tgt.dataset)) 
     joint_loader = zip(loader_src, loader_tgt)
@@ -30,7 +30,7 @@ def train(loader_src, loader_tgt, net, opt_net, opt_dis, epoch):
     net.train()
     last_update = -1
     for batch_idx, ((data_s, _), (data_t, _)) in enumerate(joint_loader):
-        print("this is epoch for batch_idx:",batch_idx, ((data_s, _), (data_t, _))  )
+        print("this is epoch for batch_idx:",batch_idx) 
         # log basic adda train info
         info_str = "[Train Adda] Epoch: {} [{}/{} ({:.2f}%)]".format(
             epoch, batch_idx*len(data_t), N, 100 * batch_idx / N)
@@ -80,7 +80,7 @@ def train(loader_src, loader_tgt, net, opt_net, opt_dis, epoch):
         ###########################
 
         # only update net if discriminator is strong
-        if acc.item() > 0.6:
+        if acc.item() > 0.5:
             
             last_update = batch_idx
         
@@ -119,7 +119,7 @@ def train(loader_src, loader_tgt, net, opt_net, opt_dis, epoch):
 def train_adda(src, tgt, model, num_cls, num_epoch=200,
         batch=128, datadir="", outdir="", 
         src_weights=None, weights=None, lr=1e-5, betas=(0.9,0.999),
-        weight_decay=0):
+        weight_decay=0.01):
     """Main function for training ADDA."""
     print("this is debug")
 
@@ -165,8 +165,9 @@ def train_adda(src, tgt, model, num_cls, num_epoch=200,
     # Train Adda #
     ##############
     for epoch in range(num_epoch):
+        print(epoch, num_epoch)
         err = train(train_src_data, train_tgt_data, net, opt_net, opt_dis, epoch) 
-        if err == -1:
+        if err == -1: 
             print("No suitable discriminator")
             break
        
